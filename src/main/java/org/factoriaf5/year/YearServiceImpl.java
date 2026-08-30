@@ -59,6 +59,10 @@ public class YearServiceImpl implements InterfaceGenericGetService<YearDTORespon
     @Override
     public void deleteEntity(Long id) {
         YearEntity year = findEntity(id);
+        if (!year.getMovies().isEmpty()) {
+            throw new ApiConflictException(
+                    "Cannot delete year " + year.getValue() + " because it has movies associated with it");
+        }
         repository.delete(year);
     }
 

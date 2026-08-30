@@ -1,12 +1,19 @@
 package org.factoriaf5.actor;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.factoriaf5.movie.MovieEntity;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Actor entity.
+ * N:M relation with MovieEntity -> an actor can appear in many movies and a
+ * movie can have many actors. Materialized through the "movie_actor" join
+ * table.
  */
 @Entity
 @Table(name = "actors")
@@ -24,6 +31,10 @@ public class ActorEntity {
 
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
+
+    @ManyToMany(mappedBy = "actors")
+    @JsonIgnore
+    private Set<MovieEntity> movies = new HashSet<>();
 
     public ActorEntity() {
     }
@@ -64,6 +75,14 @@ public class ActorEntity {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Set<MovieEntity> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(Set<MovieEntity> movies) {
+        this.movies = movies;
     }
 
     @Override

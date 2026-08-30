@@ -1,11 +1,17 @@
 package org.factoriaf5.year;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.factoriaf5.movie.MovieEntity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * Year entity.
+ * 1:N relation with MovieEntity -> a year can have many movies released in
+ * it, but each movie is released in a single year.
  */
 @Entity
 @Table(name = "years")
@@ -19,6 +25,10 @@ public class YearEntity {
     // and breaks CREATE TABLE if used unquoted as a column name.
     @Column(name = "year_value", nullable = false, unique = true)
     private Integer value;
+
+    @OneToMany(mappedBy = "year", cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private List<MovieEntity> movies = new ArrayList<>();
 
     public YearEntity() {
     }
@@ -46,6 +56,14 @@ public class YearEntity {
 
     public void setValue(Integer value) {
         this.value = value;
+    }
+
+    public List<MovieEntity> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<MovieEntity> movies) {
+        this.movies = movies;
     }
 
     @Override

@@ -59,6 +59,10 @@ public class GenreServiceImpl implements InterfaceGenericGetService<GenreDTOResp
     @Override
     public void deleteEntity(Long id) {
         GenreEntity genre = findEntity(id);
+        if (!genre.getMovies().isEmpty()) {
+            throw new ApiConflictException(
+                    "Cannot delete genre '" + genre.getName() + "' because it has movies associated with it");
+        }
         repository.delete(genre);
     }
 

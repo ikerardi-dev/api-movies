@@ -52,6 +52,9 @@ public class ActorServiceImpl implements InterfaceGenericGetService<ActorDTOResp
     @Override
     public void deleteEntity(Long id) {
         ActorEntity actor = findEntity(id);
+        // Unlink from every movie before deleting so no orphan rows are left
+        // behind in the movie_actor join table.
+        actor.getMovies().forEach(m -> m.getActors().remove(actor));
         repository.delete(actor);
     }
 
