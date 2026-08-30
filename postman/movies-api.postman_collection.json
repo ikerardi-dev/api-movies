@@ -1,0 +1,150 @@
+{
+  "info": {
+    "name": "Movies API - Factoria F5",
+    "description": "Test collection for the movies REST API (genres, years, actors and movies).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8080" }
+  ],
+  "item": [
+    {
+      "name": "Movies",
+      "item": [
+        {
+          "name": "1. Get all movies",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/v1/movies", "host": ["{{base_url}}"], "path": ["api", "v1", "movies"] }
+          }
+        },
+        {
+          "name": "2. Get movie by id",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/v1/movies/1", "host": ["{{base_url}}"], "path": ["api", "v1", "movies", "1"] }
+          }
+        },
+        {
+          "name": "3. Add movie",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Interstellar\",\n  \"synopsis\": \"A group of explorers travel through a wormhole in search of a new home for humanity.\",\n  \"durationMinutes\": 169,\n  \"director\": \"Christopher Nolan\",\n  \"genreId\": 1,\n  \"yearId\": 4,\n  \"actorIds\": [5]\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/v1/movies", "host": ["{{base_url}}"], "path": ["api", "v1", "movies"] }
+          }
+        },
+        {
+          "name": "4. Update movie",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Interstellar (Special Edition)\",\n  \"synopsis\": \"Updated version of the synopsis.\",\n  \"durationMinutes\": 169,\n  \"director\": \"Christopher Nolan\",\n  \"genreId\": 1,\n  \"yearId\": 4,\n  \"actorIds\": [5]\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/v1/movies/1", "host": ["{{base_url}}"], "path": ["api", "v1", "movies", "1"] }
+          }
+        },
+        {
+          "name": "5. Delete movie",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{base_url}}/api/v1/movies/1", "host": ["{{base_url}}"], "path": ["api", "v1", "movies", "1"] }
+          }
+        },
+        {
+          "name": "6. Search by title",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/movies/search?title=matrix",
+              "host": ["{{base_url}}"], "path": ["api", "v1", "movies", "search"],
+              "query": [{ "key": "title", "value": "matrix" }]
+            }
+          }
+        },
+        {
+          "name": "6. Search by genre",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/movies/search?genre=horror",
+              "host": ["{{base_url}}"], "path": ["api", "v1", "movies", "search"],
+              "query": [{ "key": "genre", "value": "horror" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Genres",
+      "item": [
+        {
+          "name": "Get all genres",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/v1/genres", "host": ["{{base_url}}"], "path": ["api", "v1", "genres"] }
+          }
+        },
+        {
+          "name": "Create genre",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Documentary\"\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/genres", "host": ["{{base_url}}"], "path": ["api", "v1", "genres"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Years",
+      "item": [
+        {
+          "name": "Get all years",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/v1/years", "host": ["{{base_url}}"], "path": ["api", "v1", "years"] }
+          }
+        },
+        {
+          "name": "Create year",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"value\": 2025\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/years", "host": ["{{base_url}}"], "path": ["api", "v1", "years"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Actors",
+      "item": [
+        {
+          "name": "Get all actors",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/v1/actors", "host": ["{{base_url}}"], "path": ["api", "v1", "actors"] }
+          }
+        },
+        {
+          "name": "Create actor",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Matthew McConaughey\",\n  \"nationality\": \"American\",\n  \"dateOfBirth\": \"1969-11-04\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/v1/actors", "host": ["{{base_url}}"], "path": ["api", "v1", "actors"] }
+          }
+        }
+      ]
+    }
+  ]
+}
